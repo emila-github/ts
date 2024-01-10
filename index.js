@@ -1,19 +1,52 @@
-var canvas = document.querySelector('#canvas');
-var ctx = canvas.getContext('2d');
-canvas.height = screen.availHeight; //可视区域的高度
-canvas.width = screen.availWidth; //可视区域的宽度
-var str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-var Arr = Array(Math.ceil(canvas.width / 10)).fill(0); //获取宽度例如1920 / 10 192
-console.log(Arr);
-var rain = function () {
-    ctx.fillStyle = 'rgba(0,0,0,0.05)'; //填充背景颜色
-    ctx.fillRect(0, 0, canvas.width, canvas.height); //背景
-    ctx.fillStyle = '#0f0'; //文字颜色
-    Arr.forEach(function (item, index) {
-        ctx.fillText(str[Math.floor(Math.random() * str.length)], index * 10, item + 10);
-        Arr[index] =
-            item >= canvas.height || item > 10000 * Math.random() ? 0 : item + 10; //添加随机数让字符随机出现不至于那么平整
-    });
-    console.log(Arr);
-};
-setInterval(rain, 40);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+//定义类
+var Person = /** @class */ (function () {
+    function Person(name, age, some) {
+        // 在TypeScript是不允许直接在constructor 定义变量的 需要在constructor上面先声明
+        this.name = name;
+        this.age = age;
+        this.some = some;
+    }
+    Person.prototype.run = function () { };
+    return Person;
+}());
+var xiaoming = new Person('小明', 28, 1);
+xiaoming.name;
+xiaoming.age;
+xiaoming.some;
+var Man = /** @class */ (function (_super) {
+    __extends(Man, _super);
+    function Man() {
+        var _this = _super.call(this, '小黑', 100, 2) || this;
+        console.log('Man constructor');
+        console.log(_this.name);
+        console.log(_this.age);
+        console.log(_this.some);
+        return _this;
+    }
+    Man.prototype.create = function () {
+        console.log('Man create');
+        console.log(this.name);
+        console.log(this.age);
+        console.log(this.some);
+    };
+    return Man;
+}(Person));
+var man = new Man();
+man.name;
+man.age;
+man.some;
