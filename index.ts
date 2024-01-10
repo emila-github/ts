@@ -1,30 +1,24 @@
-interface PersonClass {
-  get(type: boolean): boolean
+abstract class A {
+  public name: string
+  constructor(name: string) {
+    this.name = name
+  }
+  print(): string {
+    return this.name
+  }
+  // 在A类定义了 getName 抽象方法但未实现
+  abstract getName(): string
 }
 
-interface PersonClass2 {
-  set(): void
-  asd: string
-}
+// new A() // 抽象类无法被实例化
 
-class A {
-  name: string
+class B extends A {
   constructor() {
-    this.name = '1234'
+    super('迪迪')
+  }
+  getName(): string {
+    return this.name
   }
 }
-// ts interface 定义类 使用关键字 implements   后面跟interface的名字多个用逗号隔开 继承还是用extends
-class Person extends A implements PersonClass, PersonClass2 {
-  asd: string
-  constructor() {
-    super()
-    this.asd = 'asd'
-  }
-  get(type: boolean): boolean {
-    return type
-  }
-  set(): void {}
-}
-
-let man = new Person()
-console.log(man.name)
+let b = new B()
+console.log(b.getName())

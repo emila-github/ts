@@ -14,24 +14,24 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 var A = /** @class */ (function () {
-    function A() {
-        this.name = '1234';
+    function A(name) {
+        this.name = name;
     }
+    A.prototype.print = function () {
+        return this.name;
+    };
     return A;
 }());
-// ts interface 定义类 使用关键字 implements   后面跟interface的名字多个用逗号隔开 继承还是用extends
-var Person = /** @class */ (function (_super) {
-    __extends(Person, _super);
-    function Person() {
-        var _this = _super.call(this) || this;
-        _this.asd = 'asd';
-        return _this;
+// new A() // 抽象类无法被实例化
+var B = /** @class */ (function (_super) {
+    __extends(B, _super);
+    function B() {
+        return _super.call(this, '迪迪') || this;
     }
-    Person.prototype.get = function (type) {
-        return type;
+    B.prototype.getName = function () {
+        return this.name;
     };
-    Person.prototype.set = function () { };
-    return Person;
+    return B;
 }(A));
-var man = new Person();
-console.log(man.name);
+var b = new B();
+console.log(b.getName());
