@@ -1,8 +1,16 @@
-var Enum;
-(function (Enum) {
-    Enum[Enum["fall"] = 0] = "fall";
-})(Enum || (Enum = {}));
-var a = Enum.fall;
-console.log(a); //0
-var nameOfA = Enum[a];
-console.log(nameOfA); //fall
+function isXiaoMan(value) {
+    switch (value) {
+        case '小满':
+            break;
+        case '大满':
+            break;
+        case '超大满':
+            break;
+        case 'dd':
+            break;
+        default:
+            //是用于场景兜底逻辑
+            var error = value;
+            return error;
+    }
+}
