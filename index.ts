@@ -1,18 +1,28 @@
-type A = '小满' | '大满' | '超大满' | 'dd'
+const obj = {
+  max: 5,
+  current: 0,
+  [Symbol.iterator]() {
+    return {
+      max: this.max,
+      current: this.current,
+      next() {
+        if (this.current == this.max) {
+          return {
+            value: undefined,
+            done: true,
+          }
+        } else {
+          return {
+            value: this.current++,
+            done: false,
+          }
+        }
+      },
+    }
+  },
+}
+console.log([...obj])
 
-function isXiaoMan(value: A) {
-  switch (value) {
-    case '小满':
-      break
-    case '大满':
-      break
-    case '超大满':
-      break
-    case 'dd':
-      break
-    default:
-      //是用于场景兜底逻辑
-      const error: never = value
-      return error
-  }
+for (let val of obj) {
+  console.log(val)
 }
