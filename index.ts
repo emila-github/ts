@@ -1,5 +1,11 @@
-let arr: [number, string] = [1, 'string']
+enum Types {
+  yyds,
+  dddd,
+}
+interface A {
+  red: Types.yyds
+}
 
-arr.push(false) //error
-
-console.log(arr)
+let obj: A = {
+  red: Types.yyds,
+}
