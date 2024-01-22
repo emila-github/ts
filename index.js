@@ -1,8 +1,8 @@
-var Types;
-(function (Types) {
-    Types[Types["yyds"] = 0] = "yyds";
-    Types[Types["dddd"] = 1] = "dddd";
-})(Types || (Types = {}));
-var obj = {
-    red: Types.yyds,
-};
+var Enum;
+(function (Enum) {
+    Enum[Enum["fall"] = 0] = "fall";
+})(Enum || (Enum = {}));
+var a = Enum.fall;
+console.log(a); //0
+var nameOfA = Enum[a];
+console.log(nameOfA); //fall

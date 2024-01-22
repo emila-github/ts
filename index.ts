@@ -1,11 +1,7 @@
-enum Types {
-  yyds,
-  dddd,
+enum Enum {
+  fall,
 }
-interface A {
-  red: Types.yyds
-}
-
-let obj: A = {
-  red: Types.yyds,
-}
+let a = Enum.fall
+console.log(a) //0
+let nameOfA = Enum[a]
+console.log(nameOfA) //fall
