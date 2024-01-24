@@ -1,8 +1,17 @@
-function prop<T, K extends keyof T>(obj: T, key: K) {
-  return obj[key]
+class Sub<T> {
+  attr: T[] = []
+  add(a: T): T[] {
+    this.attr.push(a)
+    return this.attr
+  }
 }
 
-let o = { a: 1, b: 'b', c: false }
+let s = new Sub<number>()
+s.attr = [1, 2, 3]
+s.add(4)
+console.log(s.attr) // [ 1, 2, 3, 4 ]
 
-prop(o, 'a')
-// prop(o, 'd') //此时就会报错发现找不到
+let str = new Sub<string>()
+str.attr = ['a', 'b', 'c']
+str.add('d') // [ 'a', 'b', 'c', 'd' ]
+console.log(str.attr)
