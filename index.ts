@@ -1,6 +1,8 @@
-function Sub<T, K>(a: T, b: K): Array<T | K> {
-  const params: Array<T | K> = [a, b]
-  return params
+function prop<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key]
 }
 
-Sub<Boolean, number>(false, 1)
+let o = { a: 1, b: 'b', c: false }
+
+prop(o, 'a')
+// prop(o, 'd') //此时就会报错发现找不到
