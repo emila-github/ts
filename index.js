@@ -1,25 +1,19 @@
-var proxy = function (object, key) {
-    return new Proxy(object, {
-        get: function (target, prop, receiver) {
-            console.log('get');
-            return Reflect.get(target, prop, receiver);
-        },
-        set: function (target, prop, value, receiver) {
-            console.log('set');
-            return Reflect.set(target, prop, value, receiver);
+var queuedObserverList = new Set();
+var observe = function (fn) {
+    queuedObserverList.add(fn);
+};
+var observable = function (obj) {
+    return new Proxy(obj, {
+        set: function (target, key, value, receiver) {
+            queuedObserverList.forEach(function (fun) { return fun(); });
+            return Reflect.set(target, key, value, receiver);
         },
     });
 };
-// const logAccess = (object: Person, key: 'name' | 'age' | 'sex') => {
-//     return proxy(object, key)
-// }
-var logAccess = function (object, key) {
-    return proxy(object, key);
-};
-var woman = logAccess({
-    name: 'orange',
-    sex: 0,
-    age: 18,
-}, 'age');
-woman.age = 16;
-console.log(woman);
+var person = observable({ name: 'hello', age: 11 });
+function print() {
+    console.log("".concat(person.name, "--").concat(person.age));
+}
+observe(print);
+person.name = 'hi';
+person.name = 'hi2';
