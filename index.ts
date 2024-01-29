@@ -1,19 +1,17 @@
-const queuedObserverList: Set<Function> = new Set()
-const observe = (fn: Function) => {
-  queuedObserverList.add(fn)
+interface User {
+  address?: string
+  name?: string
+  age?: number
 }
-const observable = <T extends object>(obj: T) =>
-  new Proxy(obj, {
-    set(target, key, value, receiver) {
-      queuedObserverList.forEach((fun) => fun())
-      return Reflect.set(target, key, value, receiver)
-    },
-  })
+//原理
+type coustomOmit<T, K> = Pick<T, Exclude<keyof T, K>>
 
-const person = observable({ name: 'hello', age: 11 })
-function print() {
-  console.log(`${person.name}--${person.age}`)
-}
-observe(print)
-person.name = 'hi'
-person.name = 'hi2'
+type test = Omit<User, 'age'>
+type test2 = coustomOmit<User, 'age'>
+
+//结果
+
+// type test = {
+//   address?: string | undefined;
+//   name?: string | undefined;
+// }
