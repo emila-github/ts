@@ -1,17 +1,35 @@
-class Sub<T> {
-  attr: T[] = []
-  add(a: T): T[] {
-    this.attr.push(a)
-    return this.attr
-  }
+type Person = {
+  name: string
+  age: number
+  sex: number
+}
+const proxy = (object: any, key: any) => {
+  return new Proxy(object, {
+    get(target, prop, receiver) {
+      console.log('get')
+      return Reflect.get(target, prop, receiver)
+    },
+    set(target, prop, value, receiver) {
+      console.log('set')
+      return Reflect.set(target, prop, value, receiver)
+    },
+  })
 }
 
-let s = new Sub<number>()
-s.attr = [1, 2, 3]
-s.add(4)
-console.log(s.attr) // [ 1, 2, 3, 4 ]
+// const logAccess = (object: Person, key: 'name' | 'age' | 'sex') => {
+//     return proxy(object, key)
+// }
+const logAccess = <T>(object: T, key: keyof T) => {
+  return proxy(object, key)
+}
 
-let str = new Sub<string>()
-str.attr = ['a', 'b', 'c']
-str.add('d') // [ 'a', 'b', 'c', 'd' ]
-console.log(str.attr)
+let woman: Person = logAccess(
+  {
+    name: 'orange',
+    sex: 0,
+    age: 18,
+  },
+  'age'
+)
+woman.age = 16
+console.log(woman)
