@@ -1,5 +1,1 @@
-//结果
-// type test = {
-//   address?: string | undefined;
-//   name?: string | undefined;
-// }
+var fn = function () { return [1, 2, 3, 'sad']; };

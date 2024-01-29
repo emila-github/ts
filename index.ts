@@ -1,17 +1,8 @@
-interface User {
-  address?: string
-  name?: string
-  age?: number
-}
-//原理
-type coustomOmit<T, K> = Pick<T, Exclude<keyof T, K>>
+const fn = () => [1, 2, 3, 'sad']
 
-type test = Omit<User, 'age'>
-type test2 = coustomOmit<User, 'age'>
+type num = ReturnType<typeof fn>
 
-//结果
-
-// type test = {
-//   address?: string | undefined;
-//   name?: string | undefined;
-// }
+// 原理
+type CustomFn<F extends Function> = F extends (...args: any[]) => infer Res
+  ? Res
+  : never
