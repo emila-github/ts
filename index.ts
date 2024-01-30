@@ -1,17 +1,8 @@
-interface User {
-  name: string
-  age: number
+type FnType<T> = T extends {
+  a: (args: infer U) => void
+  b: (args: infer U) => void
 }
-// 获取Promise的返回值
-type Result = Promise<User>
+  ? U
+  : never
 
-type PromiseRes<T> = T extends Promise<infer R> ? R : never
-
-type r = PromiseRes<Result> // type r = User
-
-// 遇到了多层的情况可以使用递归
-type Result2 = Promise<Promise<Promise<User>>>
-
-type PromiseRes2<T> = T extends Promise<infer R> ? PromiseRes<R> : T
-
-type r2 = PromiseRes2<Result2> // type r2 = Promise<User>
+type T = FnType<{ a: (args: number) => void; b: (args: string) => void }> // type T = never
