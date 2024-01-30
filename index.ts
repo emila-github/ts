@@ -1,24 +1,17 @@
-// 实现一个 FirstEle 获取第一个索引位置的元素：
-type FirstEle<T extends unknown[]> = T extends [infer F, ...unknown[]]
-  ? F
-  : never
+interface User {
+  name: string
+  age: number
+}
+// 获取Promise的返回值
+type Result = Promise<User>
 
-type Result = FirstEle<[1, 2, 3]> // 1
+type PromiseRes<T> = T extends Promise<infer R> ? R : never
 
-type Result2 = FirstEle<[true, 1, 'darui']> // true
+type r = PromiseRes<Result> // type r = User
 
-// 实现一个 LastEle 获取最后一个索引位置的元素：
-type LastEle<T extends unknown[]> = T extends [...unknown[], infer L]
-  ? L
-  : never
+// 遇到了多层的情况可以使用递归
+type Result2 = Promise<Promise<Promise<User>>>
 
-type Result3 = LastEle<[1, 2, 3]> // 3
+type PromiseRes2<T> = T extends Promise<infer R> ? PromiseRes<R> : T
 
-type Result4 = LastEle<[true, 1, 'darui']> // 'darui'
-// 实现一个去头去尾 MiddleEles
-type MiddleEles<T extends unknown[]> = T extends [infer F, ...infer M, infer L]
-  ? M
-  : never
-
-type Result5 = MiddleEles<[1, 2, 3, 4, 5]> // [2, 3, 4]
-type Result6 = MiddleEles<[true, 1, 2, 3, 'darui']> // [1, 2, 3]
+type r2 = PromiseRes2<Result2> // type r2 = Promise<User>
