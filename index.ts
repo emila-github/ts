@@ -1,8 +1,5 @@
-type FnType<T> = T extends {
-  a: (args: infer U) => void
-  b: (args: infer U) => void
-}
-  ? U
-  : never
+type Arr = ['a', 'b', 'c']
 
-type T = FnType<{ a: (args: number) => void; b: (args: string) => void }> // type T = never
+type First<T extends any[]> = T extends [...infer Rest, unknown] ? Rest : []
+
+type a = First<Arr> // type a = ["a", "b"]
