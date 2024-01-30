@@ -1,5 +1,7 @@
-type Arr = ['a', 'b', 'c']
+type Arr = [1, 2, 3, 4]
 
-type First<T extends any[]> = T extends [...infer Rest, unknown] ? Rest : []
+type ReveArr<T extends any[]> = T extends [infer First, ...infer rest]
+  ? [...ReveArr<rest>, First]
+  : T
 
-type a = First<Arr> // type a = ["a", "b"]
+type Res = ReveArr<Arr> // type Res = [4, 3, 2, 1]
